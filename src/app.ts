@@ -1,18 +1,21 @@
-import { Request, Response } from "express";
-import { ConnectionInterface, TableInterface } from "./interfaces/connectionInterface";
+import {Express, Request, Response} from "express";
+import { ConnectionInterface } from "./interfaces/connectionInterface";
 
-const express = require('express');
-const studentRouters = require('./routers/student.router');
+import {studentRouter} from './routers/student.router';
 
-const conection: ConnectionInterface = require('./data-base/connection.mysql');
-const createTableStudent: TableInterface = require('./data-base/table.student');
+import express = require('express');
+//const studentRouters = require('./routers/student.router');
 
-conection.connect();
+import connectionMysql = require('./data-base/connection.mysql');
+//import createTableStudent = require('./data-base/table.student');
+
+const connection: ConnectionInterface = new connectionMysql.ConnectionMysql();
+connection.connect();
 //createTableStudent.createTable(conection.getConection());
 
-const app = express();
+const app: Express = express();
 app.use(express.json());
-app.use("/students", studentRouters);
+app.use("/students", studentRouter);
 
 app.get("/", function (req, res) {
     res.send("Hello World!");

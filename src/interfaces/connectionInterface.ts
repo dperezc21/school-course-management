@@ -10,5 +10,5 @@ export interface ConnectionInterface {
 
 export interface TableInterface {
     tableName: string;
-    createTable(connection: any): void;
+    createTable(connection: Connection): void;
 }

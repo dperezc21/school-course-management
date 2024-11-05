@@ -3,7 +3,7 @@ import { ConnectionInterface } from "../interfaces/connectionInterface";
 import mysql = require('mysql');
 import {Connection} from "mysql";
 
-class ConnectionMysql implements ConnectionInterface {
+export class ConnectionMysql implements ConnectionInterface {
 
     dataBaseName: string = "school_course";
 
@@ -49,6 +49,4 @@ class ConnectionMysql implements ConnectionInterface {
         return this.#connection;
     }
 }
-
-module.exports = new ConnectionMysql();
 

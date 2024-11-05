@@ -1,16 +1,16 @@
-import { StudentController } from './../controllers/student.controller';
-import { Request, Response } from "express";
+import { StudentController } from '../controllers/student.controller';
+import {Request, Response, Router} from "express";
 
-const expressStudent = require('express');
+import expressStudent = require('express');
 
-const router = expressStudent.Router();
+const router: Router = expressStudent.Router();
 
-const studentContoller = new StudentController();
+const studentController = new StudentController();
 
 router.get('', (req: Request, res: Response) => {
     res.json({"get all student": ""});
 });
 
-router.post('', studentContoller.createStudent);
+router.post('', studentController.createStudent);
 
-module.exports = router;
+export const studentRouter: Router = router;
