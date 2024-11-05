@@ -1,0 +1,14 @@
+### get all students
+GET http://localhost:3000/students
+
+
+### create student
+POST http://localhost:3000/students HTTP/1.1    
+Content-Type: application/json
+
+{
+    "firstName": "gato",
+    "lastName": "con botas",
+    "career": "mercenario",
+    "image_url": "https://www.google.com/imgres?q=gatos&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F6%2F64%2FCollage_of_Six_Cats-02.jpg&imgrefurl=https%3A%2F%2Fes.wikipedia.org%2Fwiki%2FFelis_silvestris_catus&docid=KaTT-ojxqcraZM&tbnid=xC_CUeCMeIWfdM&vet=12ahUKEwiwv5mE2sWJAxXfSjABHXwxMLgQM3oECB0QAA..i&w=1824&h=1812&hcb=2&ved=2ahUKEwiwv5mE2sWJAxXfSjABHXwxMLgQM3oECB0QAA"
+}
