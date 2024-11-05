@@ -1,4 +1,4 @@
-import { TableInterface } from "../interfaces/conection.interface";
+import { TableInterface } from "../interfaces/connectionInterface";
 
 
 export class TableStudent implements TableInterface {

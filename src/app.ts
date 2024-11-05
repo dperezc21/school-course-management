@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { ConectionInterface, TableInterface } from "./interfaces/conection.interface";
+import { ConnectionInterface, TableInterface } from "./interfaces/connectionInterface";
 
 const express = require('express');
 const studentRouters = require('./routers/student.router');
 
-const conection: ConectionInterface = require('./data-base/conection.mysql');
+const conection: ConnectionInterface = require('./data-base/connection.mysql');
 const createTableStudent: TableInterface = require('./data-base/table.student');
 
-conection.conect();
+conection.connect();
 //createTableStudent.createTable(conection.getConection());
 
 const app = express();
