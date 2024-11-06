@@ -26,7 +26,7 @@ export class StudentController {
     createStudent(req: Request, res: Response) {
 
         const student: Student = req.body;
-        const queryUrl: string = `INSERT INTO student (first_name, last_name, career, image_url) VALUES ('${student.firstName}', '${student.lastName}', '${student.career}', '${student.imageUrl}')`;
+        const queryUrl: string = `INSERT INTO student (first_name, last_name, career, image_url) VALUES ('${student.firstName}', '${student.lastName}', '${student.career}', '${student.img}')`;
         getConnection().query(queryUrl,
             (err) => {
                 if(err) res.status(500).json({
@@ -51,9 +51,9 @@ export class StudentController {
     }
 
     updateStudent(req: Request, res: Response){
-        const {firstName, lastName, career, imageUrl}: Student = req.body;
+        const {firstName, lastName, career, img}: Student = req.body;
         const studentId: string = req.params.id;
-        const queryUrl: string = `UPDATE student SET first_name='${firstName}', last_name='${lastName}', career='${career}' ${imageUrl ? `, image_url='${imageUrl}'` : ''} where id=${studentId}`;
+        const queryUrl: string = `UPDATE student SET first_name='${firstName}', last_name='${lastName}', career='${career}' ${img ? `, image_url='${img}'` : ''} where id=${studentId}`;
         getConnection().query(queryUrl, (err: MysqlError) => {
            if(err) res.status(500).json({
                message: "Error al actualizar estudiante"

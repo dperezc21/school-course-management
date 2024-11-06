@@ -3,5 +3,5 @@ export interface Student {
     firstName: string;
     lastName: string;
     career: string;
-    imageUrl: string;
+    img: string;
 }
