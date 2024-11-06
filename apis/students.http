@@ -12,3 +12,6 @@ Content-Type: application/json
     "career": "abogado",
     "image_url": ""
 }
+
+### get student by id
+GET http://localhost:3000/students/1
