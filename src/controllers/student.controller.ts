@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Student } from "../models/student";
+import { StudentModel } from "../models/student.model";
 import { ConnectionInterface } from "../interfaces/connectionInterface";
 
 import { ConnectionMysql } from '../data-base/connection.mysql';
@@ -25,7 +25,7 @@ export class StudentController {
 
     createStudent(req: Request, res: Response) {
 
-        const student: Student = req.body;
+        const student: StudentModel = req.body;
         const queryUrl: string = `INSERT INTO student (first_name, last_name, career, image_url) VALUES ('${student.firstName}', '${student.lastName}', '${student.career}', '${student.imageUrl}')`;
         getConnection().query(queryUrl,
             (err) => {
@@ -51,7 +51,7 @@ export class StudentController {
     }
 
     updateStudent(req: Request, res: Response){
-        const {firstName, lastName, career, imageUrl}: Student = req.body;
+        const {firstName, lastName, career, imageUrl}: StudentModel = req.body;
         const studentId: string = req.params.id;
         const queryUrl: string = `UPDATE student SET first_name='${firstName}', last_name='${lastName}', career='${career}' ${imageUrl ? `, image_url='${imageUrl}'` : ''} where id=${studentId}`;
         getConnection().query(queryUrl, (err: MysqlError) => {
