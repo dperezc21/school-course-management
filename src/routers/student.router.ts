@@ -7,9 +7,7 @@ const router = expressStudent.Router();
 
 const studentController: StudentController = new StudentController();
 
-router.get('', (req: Request, res: Response) => {
-    res.status(200).json({"get all student": ""});
-});
+router.get('', studentController.getAllStudents);
 
 router.post('', studentController.createStudent);
 
