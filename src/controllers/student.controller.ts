@@ -16,7 +16,7 @@ export class StudentController {
             if(err) res.status(500).json({
                 message: "error en db"
             })
-            res.status(200).json({
+            else res.status(200).json({
                 message: "",
                 result: result?.length ? result.at(0) : null
             })
@@ -26,28 +26,41 @@ export class StudentController {
     createStudent(req: Request, res: Response) {
 
         const student: Student = req.body;
-        const queryUrl: string = `INSERT INTO student (first_name, last_name, career, image_url) VALUES ('${student.firstName}', '${student.lastName}', '${student.career}', '${student.image_url}')`;
+        const queryUrl: string = `INSERT INTO student (first_name, last_name, career, image_url) VALUES ('${student.firstName}', '${student.lastName}', '${student.career}', '${student.imageUrl}')`;
         getConnection().query(queryUrl,
             (err) => {
                 if(err) res.status(500).json({
                    message: "Error en base de datos, registro no insertado"
                 });
+                else res.status(200).json({
+                    message: "student created"
+                })
             });
-        res.status(200).json({
-            message: "student created",
-            student
-        })
     }
 
     getAllStudents(req: Request, res: Response) {
-        getConnection().query("select * from student", (err: MysqlError, result: Student[]) =>{
+        getConnection().query("select * from student", (err: MysqlError, result: []) =>{
             if(err) res.status(500).json({
                 message: "Error de base de datos"
             })
-            res.status(200).status(200).json({
+            else res.status(200).status(200).json({
                 message: "",
                 result
             })
+        });
+    }
+
+    updateStudent(req: Request, res: Response){
+        const {firstName, lastName, career, imageUrl}: Student = req.body;
+        const studentId: string = req.params.id;
+        const queryUrl: string = `UPDATE student SET first_name='${firstName}', last_name='${lastName}', career='${career}' ${imageUrl ? `, image_url='${imageUrl}'` : ''} where id=${studentId}`;
+        getConnection().query(queryUrl, (err: MysqlError) => {
+           if(err) res.status(500).json({
+               message: "Error al actualizar estudiante"
+           });
+           else res.status(200).json({
+               message: "estudiante actualizado correctament"
+           })
         });
     }
 
