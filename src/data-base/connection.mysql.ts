@@ -1,37 +1,34 @@
-import { ConnectionInterface } from "../interfaces/connectionInterface";
+import {ConnectionInterface, TableInterface} from "../interfaces/connectionInterface";
 
 import mysql = require('mysql');
-import {Connection} from "mysql";
+import {Connection, MysqlError} from "mysql";
+import {TableStudent} from "./table.student";
 
 export class ConnectionMysql implements ConnectionInterface {
 
     dataBaseName: string = "school_course";
 
-    readonly #connection: Connection = null;
+    readonly tableStudent: TableInterface = new TableStudent();
 
-    constructor() {
-        if(!this.#connection) {
-            this.#connection = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: ''
-            });
-        }
-    }
+    private static readonly connection: Connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: ''
+    });
     
 
     connect() {
-        this.#connection.connect((err) => {
+        ConnectionMysql.connection.connect((err) => {
             if(err) console.log("error ocurrido ", err);
             else console.log("conectado a mysql!!");
-            this.createDataBase();
+            //this.createDataBase();
             this.useDataBase();
         })
     }
 
     createDataBase() {
         let queryDataBase: string = `CREATE DATABASE ${this.dataBaseName}`;
-        this.#connection.query(queryDataBase, (err) => {
+        ConnectionMysql.connection.query(queryDataBase, (err) => {
             if(err) console.log("error al crear database");
             console.log("Database Created Successfully !");
         })
@@ -39,14 +36,17 @@ export class ConnectionMysql implements ConnectionInterface {
 
     useDataBase() {
         let useDatabase: string = `USE ${this.dataBaseName}`;
-        this.#connection.query(useDatabase, (err) => {
+        ConnectionMysql.connection.query(useDatabase, (err) => {
             if(err) throw err;
-            console.log(`using database ${this.dataBaseName}`);
+            else console.log(`using database ${this.dataBaseName}`);
+            ConnectionMysql.connection.query("DESCRIBE student", (err: MysqlError) =>{
+                if(err) this.tableStudent.createTable(ConnectionMysql.connection);
+            });
         });
     }
 
     getConnection(): Connection {
-        return this.#connection;
+        return ConnectionMysql.connection;
     }
 }
 

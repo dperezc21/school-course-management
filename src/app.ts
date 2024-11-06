@@ -4,14 +4,11 @@ import { ConnectionInterface } from "./interfaces/connectionInterface";
 import {studentRouter} from './routers/student.router';
 
 import express = require('express');
-//const studentRouters = require('./routers/student.router');
 
 import connectionMysql = require('./data-base/connection.mysql');
-//import createTableStudent = require('./data-base/table.student');
 
 const connection: ConnectionInterface = new connectionMysql.ConnectionMysql();
 connection.connect();
-//createTableStudent.createTable(conection.getConection());
 
 const app: Express = express();
 app.use(express.json());

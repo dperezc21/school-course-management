@@ -15,4 +15,4 @@ export class TableStudent implements TableInterface {
 
 }
 
-module.exports = new TableStudent;
+//module.exports = new TableStudent;

@@ -3,12 +3,12 @@ import {Request, Response, Router} from "express";
 
 import expressStudent = require('express');
 
-const router: Router = expressStudent.Router();
+const router = expressStudent.Router();
 
-const studentController = new StudentController();
+const studentController: StudentController = new StudentController();
 
 router.get('', (req: Request, res: Response) => {
-    res.json({"get all student": ""});
+    res.status(200).json({"get all student": ""});
 });
 
 router.post('', studentController.createStudent);

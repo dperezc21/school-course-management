@@ -4,12 +4,14 @@ import { ConnectionInterface } from "../interfaces/connectionInterface";
 
 import { ConnectionMysql } from '../data-base/connection.mysql';
 
-export class StudentController {
-    #connection: ConnectionInterface = new ConnectionMysql();
-    createStudent(req: Request, res: Response) {
-        const student: Student = req.body;
+const connection: ConnectionInterface = new ConnectionMysql();
 
-        this.#connection.getConnection().query(`INSERT INTO student (id, first_name, last_name, career, image_url) VALUES (1, '${student.firstName}', '${student.lastName}', '${student.career}', '${student.image_url}')`,
+export class StudentController {
+
+    createStudent(req: Request, res: Response) {
+
+        const student: Student = req.body;
+        connection.getConnection().query(`INSERT INTO student (id, first_name, last_name, career, image_url) VALUES (1, '${student.firstName}', '${student.lastName}', '${student.career}', '${student.image_url}')`,
             (err) => {
                 if(err) throw err;
                 console.log("registro insertado");
@@ -18,6 +20,10 @@ export class StudentController {
             message: "student created",
             student
         })
+    }
+
+    hola() {
+
     }
 
 }
