@@ -1,7 +1,11 @@
 import { TableInterface } from "../interfaces/connectionInterface";
 import {Connection, MysqlError} from "mysql";
 
-export class TableStudent implements TableInterface {
+export interface AlterTable {
+    alter(connection: Connection): void;
+}
+
+export class TableStudent implements TableInterface, AlterTable {
 
     tableName: string = "student";
 
@@ -10,7 +14,15 @@ export class TableStudent implements TableInterface {
         connection.query(createTable, (err: MysqlError) => {
             if(err) throw err;
             console.log(`table ${this.tableName} created`);
-        })
+        });
+        this.alter(connection);
     }
 
+    alter(connection: Connection): void {
+        const query: string = `ALTER TABLE ${this.tableName} add column courseId varchar(20)`;
+        connection.query(query, (err: MysqlError) => {
+            if(!err) throw err;
+            else console.log(`columns add to ${this.tableName}`);
+        })
+    }
 }

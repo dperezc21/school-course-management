@@ -3,12 +3,14 @@ import {ConnectionInterface, TableInterface} from "../interfaces/connectionInter
 import mysql = require('mysql');
 import {Connection, MysqlError} from "mysql";
 import {TableStudent} from "./table.student";
+import {TableCourse} from "./table.course";
 
 export class ConnectionMysql implements ConnectionInterface {
 
     dataBaseName: string = "school_course";
 
     readonly tableStudent: TableInterface = new TableStudent();
+    readonly tableCourse: TableInterface = new TableCourse();
 
     private static readonly connection: Connection = mysql.createConnection({
         host: "localhost",
@@ -35,10 +37,12 @@ export class ConnectionMysql implements ConnectionInterface {
 
     useDataBase() {
         let useDatabase: string = `USE ${this.dataBaseName}`;
-        this.getConnection().query(useDatabase, (err: MysqlError) => {
+        const connection: Connection = this.getConnection();
+        connection.query(useDatabase, (err: MysqlError) => {
             if(err) throw err;
             else console.log(`using database ${this.dataBaseName}`);
-            this.tableStudent.createTable(ConnectionMysql.connection);
+            this.tableCourse.createTable(connection);
+            this.tableStudent.createTable(connection);
         });
     }
 
