@@ -15,33 +15,30 @@ export class ConnectionMysql implements ConnectionInterface {
         user: "root",
         password: ''
     });
-    
 
     connect() {
-        ConnectionMysql.connection.connect((err) => {
-            if(err) console.log("error ocurrido ", err);
-            else console.log("conectado a mysql!!");
-            //this.createDataBase();
+        this.getConnection().connect((err: MysqlError) => {
+            if(err) console.log("error: ", err);
+            else console.log("connected to mysql!!");
+            this.createDataBase();
             this.useDataBase();
         })
     }
 
     createDataBase() {
-        let queryDataBase: string = `CREATE DATABASE ${this.dataBaseName}`;
-        ConnectionMysql.connection.query(queryDataBase, (err) => {
-            if(err) console.log("error al crear database");
+        let queryDataBase: string = `CREATE DATABASE if not exists ${this.dataBaseName}`;
+        this.getConnection().query(queryDataBase, (err: MysqlError) => {
+            if(err) console.log("error to create database");
             console.log("Database Created Successfully !");
         })
     }
 
     useDataBase() {
         let useDatabase: string = `USE ${this.dataBaseName}`;
-        ConnectionMysql.connection.query(useDatabase, (err) => {
+        this.getConnection().query(useDatabase, (err: MysqlError) => {
             if(err) throw err;
             else console.log(`using database ${this.dataBaseName}`);
-            ConnectionMysql.connection.query("DESCRIBE student", (err: MysqlError) =>{
-                if(err) this.tableStudent.createTable(ConnectionMysql.connection);
-            });
+            this.tableStudent.createTable(ConnectionMysql.connection);
         });
     }
 
