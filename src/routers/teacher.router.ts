@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import expressStudent = require('express');
-import {TeacherController} from "../controllers/TeacherController";
+import {TeacherController} from "../controllers/teacher.controller";
 
 const router: Router = expressStudent.Router();
 
