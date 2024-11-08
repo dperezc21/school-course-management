@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {ConnectionInterface} from "../interfaces/connectionInterface";
 import {ConnectionMysql} from "../data-base/connection.mysql";
 import {MysqlError} from "mysql";
@@ -8,7 +8,7 @@ const { getConnection }: ConnectionInterface = new ConnectionMysql();
 
 export class CourseStudentMiddleware {
 
-    courseStudentNotExists(req: Request, res: Response, next: any) {
+    courseStudentNotExists(req: Request, res: Response, next: NextFunction) {
         const courseId: string = req.params.courseId;
         const studentId: string = req.params.studentId;
         const query: string = `SELECT id FROM ${COURSE_STUDENT_TABLE} 

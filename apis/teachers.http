@@ -1,0 +1,2 @@
+## get teachers
+GET http://localhost:3000/teachers

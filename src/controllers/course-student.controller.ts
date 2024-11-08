@@ -18,10 +18,10 @@ export class CourseStudentController {
         const searchCourseAndStudent: string = `SELECT s.id, c.id 
                                           FROM ${STUDENT_TABLE} as s, ${COURSE_TABLE} as c
                                           WHERE s.id=${studentId} AND c.id=${courseId}`;
-        getConnection().query(searchCourseAndStudent, (err: MysqlError, results: []) => {
+        getConnection().query(searchCourseAndStudent, (err: MysqlError, result: []) => {
             if(err) throw err;
-            else if(!results?.length) res.status(200).json({
-                message: "is not possible create the recourse", results
+            else if(!result?.length) res.status(200).json({
+                message: "is not possible create the record", result
             });
             else {
                 getConnection().query(insertCourseStudent, (err: MysqlError) => {

@@ -3,6 +3,7 @@ import { ConnectionInterface } from "./interfaces/connectionInterface";
 
 import {studentRouter} from './routers/student.router';
 import {courseRouter} from './routers/course.router';
+import {teacherRouter} from './routers/teacher.router';
 
 import express = require('express');
 
@@ -15,6 +16,7 @@ const app: Express = express();
 app.use(express.json());
 app.use("/students", studentRouter);
 app.use('/courses', courseRouter);
+app.use('/teachers', teacherRouter);
 
 app.get("/", function (req, res) {
     res.send("Hello World!");
