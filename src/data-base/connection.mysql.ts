@@ -5,6 +5,7 @@ import {Connection, MysqlError} from "mysql";
 import {TableStudent} from "./table.student";
 import {TableCourse} from "./table.course";
 import {TableCourseStudent} from "./table.courseStudent";
+import {TeacherTable} from "./teacher-table";
 
 export class ConnectionMysql implements ConnectionInterface {
 
@@ -13,6 +14,7 @@ export class ConnectionMysql implements ConnectionInterface {
     readonly tableStudent: TableInterface = new TableStudent();
     readonly tableCourse: TableInterface = new TableCourse();
     readonly tableCourseStudent: TableInterface = new TableCourseStudent();
+    readonly tableTeacher: TableInterface = new TeacherTable();
 
     private static readonly connection: Connection = mysql.createConnection({
         host: "localhost",
@@ -55,6 +57,7 @@ export class ConnectionMysql implements ConnectionInterface {
         this.tableCourse.createTable(this.getConnection());
         this.tableStudent.createTable(this.getConnection());
         this.tableCourseStudent.createTable(this.getConnection());
+        this.tableTeacher.createTable(this.getConnection());
     }
 }
 
