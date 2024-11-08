@@ -1,5 +1,5 @@
-export interface StudentModel {
-    id?: number,
+export class StudentModel {
+    id?: number;
     firstName: string;
     lastName: string;
     career: string;
