@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {MysqlError} from "mysql";
 import {ConnectionInterface} from "../interfaces/connectionInterface";
 import {ConnectionMysql} from "../data-base/connection.mysql";
+import {COURSE_STUDENT_TABLE, COURSE_TABLE, STUDENT_TABLE} from "../constants/table-names";
 
 const {getConnection}: ConnectionInterface = new ConnectionMysql();
 
@@ -12,16 +13,18 @@ export class CourseStudentController {
         const studentId: string = req.params.studentId;
         const courseId: string = req.params.courseId;
 
-        const query: string = `INSERT INTO coursestudent (studentId, courseId) VALUES ('${studentId}', '${courseId}')`;
-        const queryStudentById: string = `SELECT s.id, c.id FROM student as s, course as c
+        const insertCourseStudent: string = `INSERT INTO ${COURSE_STUDENT_TABLE} (studentId, courseId) 
+                                VALUES ('${studentId}', '${courseId}')`;
+        const searchCourseAndStudent: string = `SELECT s.id, c.id 
+                                          FROM ${STUDENT_TABLE} as s, ${COURSE_TABLE} as c
                                           WHERE s.id=${studentId} AND c.id=${courseId}`;
-        getConnection().query(queryStudentById, (err: MysqlError, results: []) => {
+        getConnection().query(searchCourseAndStudent, (err: MysqlError, results: []) => {
             if(err) throw err;
             else if(!results?.length) res.status(200).json({
                 message: "is not possible create the recourse", results
             });
             else {
-                getConnection().query(query, (err: MysqlError) => {
+                getConnection().query(insertCourseStudent, (err: MysqlError) => {
                     if(err) res.status(500).json({
                         message: "err while add the student in the course"
                     });

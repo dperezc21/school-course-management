@@ -1,9 +1,10 @@
 import { TableInterface } from "../interfaces/connectionInterface";
 import {Connection, MysqlError} from "mysql";
+import {STUDENT_TABLE} from "../constants/table-names";
 
 export class TableStudent implements TableInterface {
 
-    tableName: string = "student";
+    tableName: string = STUDENT_TABLE;
 
     createTable(connection: Connection) {
         let createTable: string = `create table if not exists ${this.tableName} 
