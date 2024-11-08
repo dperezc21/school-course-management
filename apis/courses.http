@@ -7,7 +7,7 @@ POST http://localhost:3000/courses HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "cocina"
+  "name": "mecanica"
 }
 
 ### update course
@@ -17,3 +17,12 @@ Content-Type: application/json
 {
   "name": "museo"
 }
+
+### add student to course
+PUT http://localhost:3000/courses/5/addStudent/2 HTTP/1.1
+Content-Type: application/json
+
+##{
+#  "courseId": "5",
+#  "studentId": "1"
+##}
