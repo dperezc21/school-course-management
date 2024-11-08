@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { ConnectionMysql } from '../data-base/connection.mysql';
 import {ConnectionInterface} from "../interfaces/connectionInterface";
-import {QueriesMysql} from "../utils/queries.mysql";
+import {MysqlQueries} from "../utils/mysql-queries";
 import {TEACHER_TABLE} from "../constants/table-names";
 import {MysqlError} from "mysql";
 import {TeacherModel} from "../models/teacher.model";
@@ -11,7 +11,7 @@ const { getConnection }: ConnectionInterface = new ConnectionMysql();
 export class TeacherController {
 
     getAllTeachers(req: Request, res: Response): void {
-        const query: string = QueriesMysql.getAll(TEACHER_TABLE);
+        const query: string = MysqlQueries.getAll(TEACHER_TABLE);
         getConnection().query(query, (err: MysqlError, result: []) => {
             if(err) res.status(500).json({
                 message: "Error while get teachers"
@@ -58,7 +58,7 @@ export class TeacherController {
 
     getTeacherById(req: Request, res: Response) {
         const teacherId: string = req.params.teacherId;
-        const queryUrl: string = QueriesMysql.getById(TEACHER_TABLE, teacherId); //`select * from ${TEACHER_TABLE} where id=${teacherId}`;
+        const queryUrl: string = MysqlQueries.getById(TEACHER_TABLE, teacherId); //`select * from ${TEACHER_TABLE} where id=${teacherId}`;
         getConnection().query(queryUrl, (err: MysqlError, result: []) => {
 
             if(err) res.status(500).json({

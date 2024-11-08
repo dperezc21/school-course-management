@@ -1,17 +1,19 @@
 import { Request, Response }  from 'express';
 import {ConnectionInterface} from "../interfaces/connectionInterface";
 import {ConnectionMysql} from "../data-base/connection.mysql";
-import {QueriesMysql} from "../utils/queries.mysql";
+import {MysqlQueries} from "../utils/mysql-queries";
 import {MysqlError} from "mysql";
 import {CourseModel} from "../models/course.model";
 import {COURSE_TABLE} from "../constants/table-names";
+import {DataBaseQueriesInterface} from "../interfaces/data-base-queries.interface";
 
 const {getConnection}: ConnectionInterface = new ConnectionMysql();
+const {getAll}: DataBaseQueriesInterface = new MysqlQueries();
 
 export class CourseController {
 
     getAllCourses(req: Request, res: Response) {
-        getConnection().query(QueriesMysql.getAll(COURSE_TABLE), (err: MysqlError, result: []) => {
+        getConnection().query(getAll(COURSE_TABLE),(err: MysqlError, result: []) => {
            if(err) res.status(500).json({
                message: "Err while get all courses"
            });

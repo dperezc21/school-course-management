@@ -5,13 +5,17 @@ import { ConnectionInterface } from "../interfaces/connectionInterface";
 import { ConnectionMysql } from '../data-base/connection.mysql';
 import {MysqlError} from "mysql";
 import {STUDENT_TABLE} from "../constants/table-names";
+import {MysqlQueries} from "../utils/mysql-queries";
+import {DataBaseQueriesInterface} from "../interfaces/data-base-queries.interface";
 
 const {getConnection}: ConnectionInterface = new ConnectionMysql();
+
+const {getById, getAll}: DataBaseQueriesInterface = new MysqlQueries();
 
 export class StudentController {
     getStudentById(req: Request, res: Response) {
         const studentId: string = req.params.id;
-        const queryUrl: string = `select * from ${STUDENT_TABLE} where id=${studentId}`;
+        const queryUrl: string = getById(STUDENT_TABLE, studentId);
         getConnection().query(queryUrl, (err: MysqlError, result: []) => {
 
             if(err) res.status(500).json({
@@ -42,7 +46,7 @@ export class StudentController {
     }
 
     getAllStudents(req: Request, res: Response) {
-        getConnection().query("select * from ${STUDENT_TABLE}", (err: MysqlError, result: []) =>{
+        getConnection().query(getAll(STUDENT_TABLE), (err: MysqlError, result: []) =>{
             if(err) res.status(500).json({
                 message: "Error de base de datos"
             })
