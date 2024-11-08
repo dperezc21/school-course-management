@@ -37,4 +37,22 @@ export class TeacherController {
             })
         });
     }
+
+    updateTeacher(req: Request, res: Response) {
+        const {firstName, lastName, imageUrl}: TeacherModel = req.body;
+        const teacherId: string = req.params.teacherId;
+        const queryUrl: string = `UPDATE ${TEACHER_TABLE} 
+                                  SET first_name='${firstName}', 
+                                      last_name='${lastName}'
+                                      ${imageUrl ? `, image_url='${imageUrl}'`: ''}
+                                  WHERE id=${teacherId}`;
+        getConnection().query(queryUrl, (err) => {
+            if(err) res.status(500).json({
+                message: "Error while update teacher"
+            });
+            else res.status(200).json({
+                message: "teacher updated"
+            })
+        });
+    }
 }
