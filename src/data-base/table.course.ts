@@ -6,11 +6,9 @@ export class TableCourse implements TableInterface {
     tableName: string = "course";
 
     createTable(connection: Connection): void {
-        const createTable: string = `create table if not exists course
+        const createTable: string = `create table if not exists ${this.tableName}
                           (id bigint primary key auto_increment,
-                          name varchar(50),
-                          studentId BIGINT,
-                          FOREIGN KEY (studentId) REFERENCES student(id))`;
+                          name varchar(50))`;
         connection.query(createTable, (err: MysqlError) => {
             if(err) throw err;
             else console.log(`table ${this.tableName} created`);
