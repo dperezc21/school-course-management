@@ -55,4 +55,19 @@ export class TeacherController {
             })
         });
     }
+
+    getTeacherById(req: Request, res: Response) {
+        const teacherId: string = req.params.teacherId;
+        const queryUrl: string = QueriesMysql.getById(TEACHER_TABLE, teacherId); //`select * from ${TEACHER_TABLE} where id=${teacherId}`;
+        getConnection().query(queryUrl, (err: MysqlError, result: []) => {
+
+            if(err) res.status(500).json({
+                message: "error while search student by id"
+            })
+            else res.status(200).json({
+                message: "",
+                result: result?.length ? result.at(0) : null
+            })
+        });
+    }
 }
