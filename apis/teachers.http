@@ -1,2 +1,12 @@
 ## get teachers
 GET http://localhost:3000/teachers
+
+### create teacher
+POST http://localhost:3000/teachers HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "miguel",
+  "lastName": "alvarez",
+  "image_url": ""
+}
