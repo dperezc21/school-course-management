@@ -2,18 +2,18 @@ import {ConnectionInterface, TableInterface} from "../interfaces/connectionInter
 
 import mysql = require('mysql');
 import {Connection, MysqlError} from "mysql";
-import {TableStudent} from "./table.student";
-import {TableCourse} from "./table.course";
-import {TableCourseStudent} from "./table.courseStudent";
+import {StudentTable} from "./student-table";
+import {CourseTable} from "./course-table";
+import {CourseStudentTable} from "./courseStudent-table";
 import {TeacherTable} from "./teacher-table";
 
 export class ConnectionMysql implements ConnectionInterface {
 
     dataBaseName: string = "school_course";
 
-    readonly tableStudent: TableInterface = new TableStudent();
-    readonly tableCourse: TableInterface = new TableCourse();
-    readonly tableCourseStudent: TableInterface = new TableCourseStudent();
+    readonly tableStudent: TableInterface = new StudentTable();
+    readonly tableCourse: TableInterface = new CourseTable();
+    readonly tableCourseStudent: TableInterface = new CourseStudentTable();
     readonly tableTeacher: TableInterface = new TeacherTable();
 
     private static readonly connection: Connection = mysql.createConnection({

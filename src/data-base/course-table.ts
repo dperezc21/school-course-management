@@ -3,7 +3,7 @@ import {Connection, MysqlError} from "mysql";
 import {COURSE_TABLE} from "../constants/table-names";
 
 
-export class TableCourse implements TableInterface {
+export class CourseTable implements TableInterface {
     tableName: string = COURSE_TABLE;
 
     createTable(connection: Connection): void {

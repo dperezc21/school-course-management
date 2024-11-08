@@ -2,7 +2,7 @@ import { TableInterface } from "../interfaces/connectionInterface";
 import {Connection, MysqlError} from "mysql";
 import {STUDENT_TABLE} from "../constants/table-names";
 
-export class TableStudent implements TableInterface {
+export class StudentTable implements TableInterface {
 
     tableName: string = STUDENT_TABLE;
 
